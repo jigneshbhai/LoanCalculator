@@ -1,6 +1,5 @@
-cheat-cheat.md
 .env
-node_modules
+node_modules/*
 
 # other
 *.xlsx
