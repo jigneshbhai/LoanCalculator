@@ -14,12 +14,10 @@ app.use(express.urlencoded({ extended: false }));
 
 //routes
 const userRoutes = require("./routes/UserRoutes");
-
+const loanRoutes = require("./routes/LoanRoutes");
 
 app.use("/api/users", userRoutes);
-
-
-
+app.use("/api/Loan-calculation", loanRoutes);
 
 app.use(errorHandler);
 

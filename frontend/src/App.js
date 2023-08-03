@@ -17,6 +17,7 @@ import Nav from "./components/Nav/Nav";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
+import Footer from "./components/Footer/Footer";
 
 
 
@@ -54,6 +55,7 @@ function App() {
             <Route path="/register" element={<Register />} />
           </Routes>
         </div>
+        <Footer />
       </Router>
     </>
   );
