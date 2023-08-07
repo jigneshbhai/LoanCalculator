@@ -12,19 +12,16 @@ import "react-toastify/dist/ReactToastify.css";
 import { setDarkMode } from "./features/theme/themeSlice";
 import { getUserData } from "./features/auth/authSlice";
 
-
 import Nav from "./components/Nav/Nav";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
-
-
-
-
+import ToastCloseButton from "./components/Tools/ToastCloseButton";
+import LoanCalculator from "./pages/LoanCalculator/LoanCalculator";
+import LoanBill from "./components/LoanComponents/LoanBill";
 
 function App() {
-
   const { user, message } = useSelector((state) => state.auth);
   const { darkMode } = useSelector((state) => state.theme);
 
@@ -50,6 +47,8 @@ function App() {
         <Nav />
         <div className="container">
           <Routes>
+          <Route path="loan-bill" element={<LoanBill />} />
+            <Route path="/loan-calculator" element={<LoanCalculator />} />
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -57,6 +56,12 @@ function App() {
         </div>
         <Footer />
       </Router>
+      <ToastContainer
+        limit={5}
+        autoClose={3000}
+        pauseOnFocusLoss={false}
+        closeButton={<ToastCloseButton />}
+      />
     </>
   );
 }

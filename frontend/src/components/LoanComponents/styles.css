@@ -1,0 +1,21 @@
+.bill {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.pie-chart {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.bill-details {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.result {
+  margin-bottom: 20px;
+}

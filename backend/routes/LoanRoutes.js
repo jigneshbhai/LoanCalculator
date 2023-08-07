@@ -1,23 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const { protect } = require("../middleware/authMiddleware");
+const { saveLoanBill } = require("../controllers/LoanControllers");
 
-const {
-	postCalculation,
-	getCalculations,
-	getCalculation,
-	putCalculation,
-	deleteCalculation,
-} = require('../controllers/LoanControllers')
-
-const { protect } = require('../middleware/authMiddleware');
-
-
-router.route("/").post(protect, postCalculation).get(protect, getCalculations);
-
-router
-  .route("/:id")
-  .put(protect, putCalculation)
-  .delete(protect, deleteCalculation)
-  .get(protect, getCalculation);
+// Route for saving the loan bill
+router.post("/save-loan-bill", protect, saveLoanBill);
 
 module.exports = router;

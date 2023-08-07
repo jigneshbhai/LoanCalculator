@@ -12,13 +12,14 @@ const Home = () => {
   return (
     <>
       <div className="calculator-container">
-        <Link to="/LoanCalculator" className="calculator-card">
+        <Link to="/loan-calculator" className="calculator-card">
           <div>
             <h2>LoanCalculator</h2>
             <hr />
             <p>
-              This Calculator use for Get calculation of the Time Period and interest of Loan. Additionally,
-              logged in users can save their calculations.,
+              This Calculator use for Get calculation of the Time Period and
+              interest of Loan. Additionally, logged in users can save their
+              calculations.,
             </p>
           </div>
         </Link>

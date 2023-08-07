@@ -1,23 +1,24 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const loanSchema = mongoose.Schema(
+// Define the LoanBill schema
+const loanBillSchema = new mongoose.Schema(
   {
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // Reference to the User model
       required: true,
-      ref: "User",
     },
-    name: {
-      type: String,
-      required: [true, "Please name your calculation"],
-      maxlength: [30, "The maximum character length for names is 30"],
+    loanAmount: {
+      type: Number,
+      required: true,
     },
-    formDataq: {
-      loanFrequency: { value: { type: Number }, label: { type: String } },
-      interestRate: { type: Number, min: 0 },
-      startingBalance: { type: Number, min: 0 },
-      duration: { type: Number, min: 0 },
-      durationMultiplier: { value: { type: Number }, label: { type: String } },
+    totalInterest: {
+      type: Number,
+      required: true,
+    },
+    totalAmount: {
+      type: Number,
+      required: true,
     },
   },
   {
@@ -25,4 +26,7 @@ const loanSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Loan_Calculation", loanSchema);
+// Create the LoanBill model
+const LoanBillModel = mongoose.model("LoanBill", loanBillSchema);
+
+module.exports = LoanBillModel;

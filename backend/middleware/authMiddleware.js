@@ -15,10 +15,10 @@ const protect = asyncHandler(async (req, res, next) => {
     try {
       // Get the token from the http authorization header
       token = req.headers.authorization.split(" ")[1];
-
+      console.log("Token:", token);
       // Verify the token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+      console.log("Decoded Payload:", decoded);
       // Re-assingn req.user with the id from the token excluding the password
       // Now req.user is available in other controller functions that user the same token
       req.user = await User.findById(decoded.id).select("-password");

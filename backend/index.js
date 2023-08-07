@@ -5,19 +5,19 @@ const colors = require("colors");
 const port = process.env.PORT || 5000;
 const { errorHandler } = require("./middleware/errorMiddleware");
 
-const connectDB = require("../backend/config/db");
+const connectDB = require("./config/db");
 connectDB();
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//routes
+// Routes
 const userRoutes = require("./routes/UserRoutes");
-const loanRoutes = require("./routes/LoanRoutes");
+const loanBillRoutes = require("./routes/LoanRoutes"); // Add this line to include the loan routes
 
 app.use("/api/users", userRoutes);
-app.use("/api/Loan-calculation", loanRoutes);
+app.use("/api/loan-bill", loanBillRoutes); // Use "/api" as the prefix for loan routes
 
 app.use(errorHandler);
 

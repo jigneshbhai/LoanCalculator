@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserPreferences } from "../../features/auth/authSlice";
 import { toast } from "react-toastify";
-
+import axios from "axios";
 import { reset, logout } from "../../features/auth/authSlice";
 import { setDarkMode } from "../../features/theme/themeSlice";
 import UserOptionsList from "./UserOptionsList";
@@ -31,12 +31,28 @@ const Nav = () => {
     toast.success("Logged out.");
   };
 
-  const handleDarkModeChange = () => {
-    const mode = !darkMode;
-    user &&
-      dispatch(updateUserPreferences({ ...user.preferences, darkMode: mode }));
-    !user && dispatch(setDarkMode(mode));
-  };
+   const handleDarkModeChange = async () => {
+     const mode = !darkMode;
+     if (user) {
+       try {
+         // Make an API call to update the user preferences in the backend
+         await axios.put("/api/update-user-preferences", {
+           ...user.preferences,
+           darkMode: mode,
+         });
+         // If the API call is successful, dispatch the action to update theme preference in Redux
+         dispatch(setDarkMode(mode));
+       } catch (error) {
+         // Handle any errors that occurred during the API call
+         console.error("Error updating user preferences:", error);
+       }
+     } else {
+       // Dispatch action to update theme preference locally
+       dispatch(setDarkMode(mode));
+       // Also, you can save the theme preference in localStorage for non-logged-in users
+       localStorage.setItem("darkMode", JSON.stringify(mode));
+     }
+   };
 
   const handleBurgerClick = () => {
     setBurgerActive(!burgerActive);
