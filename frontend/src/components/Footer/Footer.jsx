@@ -16,9 +16,7 @@ const Footer = () => {
       <div className="footer-top">
         <div className="footer-brand-section">
           <div className="brand">
-            <h2>
-              LoanCalculator
-            </h2>
+            <h2>LoanCalculator</h2>
           </div>
         </div>
         <div className="footer-links-container">
@@ -57,25 +55,25 @@ const Footer = () => {
               <Link url="https://react-select.com/home" text="React Select" />
             </ul>
           </div>
-          
         </div>
       </div>
       <div className="footer-bottom">
         <div className="footer-icons">
           <Icon
-            url="https://github.com/0mppula"
+            url="https://github.com/jigneshbhai"
             icon={<FaGithub />}
             ariaLabel="faGithub"
           />
           <Icon
-            url="https://www.linkedin.com/in/omarkraidie/"
+            url="https://www.linkedin.com/in/jigneshbaldaniya/"
             icon={<FaLinkedin />}
             ariaLabel="Linkedin"
           />
         </div>
         <p>Developed by Aphelios solutions.</p>
         <p>
-          Copyright <span className="copyright">{year}&copy;</span> All Rights Reserved.
+          Copyright <span className="copyright">{year}&copy;</span> All Rights
+          Reserved.
         </p>
       </div>
     </div>

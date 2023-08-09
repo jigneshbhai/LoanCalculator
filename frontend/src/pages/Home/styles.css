@@ -22,7 +22,7 @@ h1 {
 }
 
 .calculator-card {
-  margin-top: -700px;
+  margin-top: -300px;
   padding: 1rem;
   background-color: var(--clr-background-L2);
   border-radius: 4px;

@@ -9,17 +9,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { setDarkMode } from "./features/theme/themeSlice";
-import { getUserData } from "./features/auth/authSlice";
-
 import Nav from "./components/Nav/Nav";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 import ToastCloseButton from "./components/Tools/ToastCloseButton";
-import LoanCalculator from "./pages/LoanCalculator/LoanCalculator";
+import SavesLoanInfo from "./components/SavedLoanInfo/SavesLoanInfo";
 import LoanBill from "./components/LoanComponents/LoanBill";
+import LoanCalculator from "./pages/LoanCalculator/LoanCalculator";
 
 function App() {
   const { user, message } = useSelector((state) => state.auth);
@@ -47,7 +45,8 @@ function App() {
         <Nav />
         <div className="container">
           <Routes>
-          <Route path="loan-bill" element={<LoanBill />} />
+            <Route path="/Save-bills" element={<SavesLoanInfo />} />
+            <Route path="loan-bill" element={<LoanBill />} />
             <Route path="/loan-calculator" element={<LoanCalculator />} />
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -57,8 +56,8 @@ function App() {
         <Footer />
       </Router>
       <ToastContainer
-        limit={5}
-        autoClose={3000}
+        limit={2}
+        autoClose={2000}
         pauseOnFocusLoss={false}
         closeButton={<ToastCloseButton />}
       />

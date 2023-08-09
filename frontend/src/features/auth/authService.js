@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const API_URL = "/api/users/";
-const API_URL2 = "/api/loan-bill/";
+
 
 // Get user data
 const getUserData = async (user) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${user.token}`,
+      Authorization: `${user.token}`,
     },
   };
 
@@ -50,55 +50,11 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
-// Update users currency preferences
-const updateUserPreferences = async (user, userData) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-    },
-  };
-
-  const response = await axios.put(
-    `${API_URL}me/preferences/currency`,
-    userData,
-    config
-  );
-  if (response.data) {
-    const updatedUser = { ...user, preferences: response.data };
-    localStorage.setItem("user", JSON.stringify(updatedUser));
-  }
-
-  return response.data;
-};
-
-//saving the loan bill
-const saveLoanBill = async (userId, loanBillData) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${userId.token}`,
-    },
-  };
-
-  try {
-    const response = await axios.post(
-      `${API_URL2}saveLoanBill`,
-      loanBillData,
-      config
-    );
-
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
 const authService = {
   getUserData,
   register,
   logout,
   login,
-  updateUserPreferences,
-  saveLoanBill,
 };
 
 export default authService;

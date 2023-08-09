@@ -30,9 +30,6 @@ const registerUser = asyncHandler(async (req, res) => {
     username,
     email,
     password: hashedPassword,
-    preferences: {
-      darkMode,
-    },
   });
 
   // check if user is created successfully
@@ -41,7 +38,6 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user._id,
       username: user.username,
       email: user.email,
-      preferences: user.preferences,
       token: generateToken(user._id),
     });
   } else {
@@ -60,7 +56,6 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user._id,
       username: user.username,
       email: user.email,
-      preferences: user.preferences,
       token: generateToken(user._id),
     });
   } else {
@@ -70,35 +65,18 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 
-const updateUserPreferences = asyncHandler(async (req, res) => {
-  // Check if user exists
-  if (!req.user) {
-    res.status(401);
-    throw new Error("User not found.");
-  }
-  const updatedUser = await User.findByIdAndUpdate(
-    req.user.id,
-    { preferences: req.body },
-    { new: true }
-  );
-  res.status(200).json(updatedUser.preferences);
-});
-
-
 const getUserData = asyncHandler(async (req, res) => {
   res.status(200).json(req.user);
 });
 
 // Generate JWT
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
-  });
+  return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 
 module.exports = {
   registerUser,
   loginUser,
   getUserData,
-  updateUserPreferences,
+  generateToken,
 };

@@ -6,13 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
 import LoanBill from "../../components/LoanComponents/LoanBill";
 import authService from "../../features/auth/authService";
-
+import calculatorService from "../../features/utils/calculatorService";
 
 const LoanCalculator = () => {
-
-
-  
-
   const [amount, setAmount] = useState();
   const [interestRate, setInterestRate] = useState();
   const [loanTenure, setLoanTenure] = useState();
@@ -20,8 +16,6 @@ const LoanCalculator = () => {
   const [monthlyPayment, setMonthlyPayment] = useState("");
   const [totalPayment, setTotalPayment] = useState("");
   const [totalInterest, setTotalInterest] = useState("");
-
-
 
   const calculateMonthlyPayment = () => {
     const monthlyInterestRate = interestRate / 1200;
@@ -38,13 +32,13 @@ const LoanCalculator = () => {
     const totalPayments =
       tenureType === "monthly" ? loanTenure : loanTenure * 12;
     const totalPayment = (monthlyPayment * totalPayments).toFixed(2);
-    return totalPayment;
+    return parseFloat(totalPayment);
   };
 
   const calculateTotalInterest = () => {
     const totalPayment = calculateTotalPayment();
     const totalInterest = (totalPayment - amount).toFixed(2);
-    return totalInterest;
+    return parseFloat(totalInterest);
   };
 
   const handleAmountChange = (e) => {
@@ -78,54 +72,50 @@ const LoanCalculator = () => {
     }
   };
 
+  const resultsRef = useRef(null);
 
-const { user } = useSelector((state) => state.auth);
 
-  const [loggedIn, setLoggedIn] = useState(false);
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setLoggedIn(!!token); 
-  }, []);
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const handleSaveLoanBill = async () => {
+    try {
+      if (!user) {
+        toast.error("Please log in to save the loan bill.");
+        navigate("/login");
+        // You can add a redirection here if needed
+      } else {
+        if (!user || !user.token) {
+          toast.error("User data not found. Please log in again.");
+          return;
+        }
 
- const resultsRef = useRef(null);
- const navigate = useNavigate();
+        // Handle saving the loan bill when the user is logged in
+        const loanBillData = {
+          userId: user._id,
+          loanAmount: amount,
+          totalInterest: totalInterest,
+          totalAmount: totalPayment,
+        };
 
- const handleSaveLoanBill = async () => {
-   try {
-     if (!user) {
-       toast.error("Please log in to save the loan bill.");
-       navigate("/login");
-       // You can add a redirection here if needed
-     } else {
-       
-       if (!user || !user.token) {
-         toast.error("User data not found. Please log in again.");
-         return;
-       }
+        // Call the API to save the loan bill
+        const response = await calculatorService.saveLoanBill(
+          user,
+          loanBillData,
+          user.token
+        );
 
-       // Handle saving the loan bill when the user is logged in
-       const loanBillData = {
-         loanAmount: amount,
-         totalInterest: totalInterest,
-         totalAmount: totalPayment,
-       };
-
-       // Call the API to save the loan bill
-       const response = await authService.saveLoanBill(user, loanBillData);
-
-       if (response && response.success) {
-         toast.success("Loan bill saved successfully!");
-       } else {
-         toast.error("Failed to save the loan bill. Please try again.");
-       }
-     }
-   } catch (error) {
-     console.error("Error saving loan bill:", error);
-     toast.error("An error occurred while saving the loan bill.");
-   }
- };
-
- 
+        if (response && response.success) {
+          toast.success("Loan bill saved successfully!");
+          navigate("/Save-bills");
+        } else {
+          toast.error("Failed to save the loan bill. Please try again.");
+        }
+      }
+    } catch (error) {
+      console.error("Error saving loan bill:", error);
+      toast.error("An error occurred while saving the loan bill.");
+    }
+  };
 
   return (
     <>
@@ -228,7 +218,7 @@ const { user } = useSelector((state) => state.auth);
           )}
         </div>
 
-        { monthlyPayment && totalPayment && totalInterest && (
+        {monthlyPayment && totalPayment && totalInterest && (
           <>
             <LoanBill
               loanAmount={amount}
@@ -237,6 +227,12 @@ const { user } = useSelector((state) => state.auth);
             />
             <button onClick={handleSaveLoanBill}>Save</button>
           </>
+        )}
+
+        {user && (
+          <Link to="/Save-bills">
+            <button>Saved Loan Bills</button>
+          </Link>
         )}
       </div>
     </>

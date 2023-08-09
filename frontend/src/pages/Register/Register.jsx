@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { useTitle } from "../../hooks/useTitle";
+
 
 const Register = () => {
 
-  useTitle("Register");
+  
   const [formData, setFormData] = useState({
     username: "",
     email: "",

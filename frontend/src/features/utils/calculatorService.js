@@ -1,104 +1,67 @@
 import axios from "axios";
 
-// Create a new calculation.
-const createCalculation = async (apiUrl, calculationData, token) => {
+const API_URL = "/api/loan-bill/";
+
+const saveLoanBill = async (userId, loanBillData, token) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     },
   };
 
-  const response = await axios.post(apiUrl, calculationData, config);
+  try {
+    const response = await axios.post(
+      `${API_URL}save-loan-bill`,
+      { userId, ...loanBillData },
+      config
+    );
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
-// Get the calculations of a user.
-const getCalculations = async (apiUrl, token) => {
+const fetchLoanBills = async (userId, token) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     },
   };
 
-  const response = await axios.get(apiUrl, config);
-  return response.data;
+  try {
+    const response = await axios.get(
+      `${API_URL}fetch-loan-bills?userId=${userId}`,
+      config
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
-// Get a users calculations with an id.
-const getCalculation = async (apiUrl, calculationId, token) => {
+const deleteLoanBill = async (userId, token, billId) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     },
   };
-
-  const response = await axios.get(`${apiUrl}${calculationId}`, config);
-  return response.data;
-};
-
-// Update a users calculation.
-const updateCalculation = async (
-  apiUrl,
-  calculationId,
-  calculationData,
-  token
-) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.put(
-    `${apiUrl}${calculationId}`,
-    calculationData,
-    config
-  );
-  return response.data;
-};
-
-// Update a users calculation name.
-const renameCalculation = async (
-  apiUrl,
-  calculationId,
-  calculationData,
-  token
-) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.put(
-    `${apiUrl}${calculationId}`,
-    calculationData,
-    config
-  );
-
-  return response.data;
-};
-
-// Delete a users calculation.
-const deleteCalculation = async (apiUrl, calculationId, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const response = await axios.delete(`${apiUrl}${calculationId}`, config);
-  return response.data;
+  try {
+    const response = await axios.delete(
+      `${API_URL}delete-loan-bill/${billId}`, // Corrected URL here
+      config
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const calculatorService = {
-  getCalculations,
-  getCalculation,
-  deleteCalculation,
-  createCalculation,
-  updateCalculation,
-  renameCalculation,
+  saveLoanBill,
+  fetchLoanBills,
+  deleteLoanBill,
 };
 
 export default calculatorService;

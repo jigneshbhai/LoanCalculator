@@ -1,0 +1,57 @@
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.loan-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Responsive Styles for Mobile */
+@media (max-width: 768px) {
+  .loan-list {
+    grid-template-columns: repeat(1, minmax(0, 1fr)); /* Display one column on mobile */
+  }
+}
+
+.loan-item {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  background-color: gray;
+  border: 1px solid #ddd;
+  padding: 20px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+  width: 100%; /* Adjust the width */
+  max-width: 300px; /* Adjust the max-width */
+  margin: 0 auto; /* Center horizontally */
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.amount {
+  font-weight: bold;
+  color: #3a2de2;
+  margin: 0; /* Remove margin to avoid extra space */
+}
+
+.interest {
+  color: #00ecfd;
+  margin: 0; /* Remove margin to avoid extra space */
+}
+
+.total {
+  color: #000000;
+  margin: 0; /* Remove margin to avoid extra space */
+  margin-bottom: 8px;
+}
+

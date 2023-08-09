@@ -15,15 +15,6 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a password"],
     },
-    preferences: {
-      darkMode: Boolean,
-      currency: {
-        name: { type: String, default: "dollar" },
-        value: { type: String, default: "usd" },
-        label: { type: String, default: "$" },
-        locale: { type: String, default: "en-US" },
-      },
-    },
   },
   {
     timestamps: true,

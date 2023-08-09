@@ -3,12 +3,10 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 
-import { useTitle } from "../../hooks/useTitle";
+
 import "./styles.css";
 
 const Home = () => {
-  useTitle("Home");
-
   return (
     <>
       <div className="calculator-container">
@@ -17,7 +15,7 @@ const Home = () => {
             <h2>LoanCalculator</h2>
             <hr />
             <p>
-              This Calculator use for Get calculation of the Time Period and
+              This Calculator use for Get calculation of the TotalAmount and
               interest of Loan. Additionally, logged in users can save their
               calculations.,
             </p>
