@@ -6,10 +6,12 @@ import calculatorService from "../../features/utils/calculatorService";
 import { useSelector } from "react-redux";
 
 import "./styles.css";
+import LoanDetails from "../LoanDetails/LoanDetails";
 
 const SavesLoanInfo = () => {
   const { user } = useSelector((state) => state.auth);
   const [loanBills, setLoanBills] = useState([]);
+  const [selectedBill, setSelectedBill] = useState(null);
 
   useEffect(() => {
     async function fetchLoanBills() {
@@ -46,6 +48,10 @@ const SavesLoanInfo = () => {
     }
   };
 
+  const handleCardClick = (bill) => {
+    setSelectedBill(bill);
+  };
+
   return (
     <div className="saves-loan-info">
       <div className="container">
@@ -53,7 +59,7 @@ const SavesLoanInfo = () => {
         <ul className="loan-list">
           {loanBills.map((bill) => (
             <li key={bill._id} className="loan-item">
-              <div className="card">
+              <div className="card" onClick={() => handleCardClick(bill)}>
                 <p className="amount">Loan Amount: {bill.loanAmount}</p>
                 <p className="interest">Total Interest: {bill.totalInterest}</p>
                 <p className="total">Total Amount: {bill.totalAmount}</p>
@@ -67,8 +73,8 @@ const SavesLoanInfo = () => {
             </li>
           ))}
         </ul>
+        {selectedBill && <LoanDetails bill={selectedBill} />}
       </div>
-      
     </div>
   );
 };

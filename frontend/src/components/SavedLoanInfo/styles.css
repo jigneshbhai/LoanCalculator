@@ -49,9 +49,13 @@
   margin: 0; /* Remove margin to avoid extra space */
 }
 
+
 .total {
-  color: #000000;
+  color: #4ecc3d;
   margin: 0; /* Remove margin to avoid extra space */
   margin-bottom: 8px;
 }
 
+.delete-button{
+  color: #000000;
+}

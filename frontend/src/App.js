@@ -38,6 +38,7 @@ function App() {
       : body.classList.remove("darkmode");
     setUpdates(updates + 1);
   }, [darkMode]);
+  
 
   return (
     <>
@@ -50,7 +51,7 @@ function App() {
             <Route path="/loan-calculator" element={<LoanCalculator />} />
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/register" element={<Register />} />  
           </Routes>
         </div>
         <Footer />

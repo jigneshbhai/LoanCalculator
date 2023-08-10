@@ -91,7 +91,7 @@ button {
   border-radius: 5px;
   border: none;
   background-color: var(--clr-success);
-  color: var(--clr-button-text);
+  color: black;
   cursor: pointer;
   font-weight: bold;
   transition: var(--fast-transition);
